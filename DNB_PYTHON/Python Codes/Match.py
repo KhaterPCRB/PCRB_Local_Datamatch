@@ -5,6 +5,8 @@ from rapidfuzz import fuzz, process
 import numpy as np
 from multiprocess import Pool
 import string
+import timeit
+
 tqdm.pandas()
 
 ##This portion just surpresses warnings that do not affect the performance of the code.
@@ -303,7 +305,7 @@ def Match(DF, Gov):
 
 #=============================================================
 #SUB DF
-df=ODF.sample(6000, random_state=1)
+df=ODF.sample(2000, random_state=1)
 
 # #11 is a good seed
 # R=main(df,GDF)
@@ -319,7 +321,8 @@ df=ODF.sample(6000, random_state=1)
 
 def split_data(df, chunk_size):
     return [df[i:i + chunk_size] for i in range(0, len(df), chunk_size)]
-def run_para(OPTi_df, DNB_df, chunk_size=1000, threshold=0.73, verbose=False):
+def run_para(OPTi_df, DNB_df, chunk_size=2000, threshold=0.73, verbose=False):
+    start_time = timeit.default_timer()
     chunks = split_data(OPTi_df, chunk_size)
     
     # Log the number of chunks for debugging purposes
@@ -345,10 +348,13 @@ def run_para(OPTi_df, DNB_df, chunk_size=1000, threshold=0.73, verbose=False):
     if verbose:
         print(f"Total number of rows after concatenation: {len(prefinal_results)}")
         final_results.head(30)
-
+    end_time=timeit.default_timer()
+    print(f"Total execution time: {end_time-start_time} seconds")
     return final_results
 
 # The main function that will run when the script is executed directly
 if __name__ == '__main__':
-    result_df = run_para(df, GDF,1000,.73, True)
+    result_df = run_para(df, GDF,500,.73, True)
     print(result_df)
+
+
