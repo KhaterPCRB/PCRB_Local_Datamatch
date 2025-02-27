@@ -305,7 +305,7 @@ def Match(DF, Gov):
 
 #=============================================================
 #SUB DF
-df=ODF.sample(2000, random_state=1)
+df=ODF.sample(20000, random_state=1)
 
 # #11 is a good seed
 # R=main(df,GDF)
@@ -321,7 +321,7 @@ df=ODF.sample(2000, random_state=1)
 
 def split_data(df, chunk_size):
     return [df[i:i + chunk_size] for i in range(0, len(df), chunk_size)]
-def run_para(OPTi_df, DNB_df, chunk_size=2000, threshold=0.73, verbose=False):
+def run_para(OPTi_df, DNB_df, chunk_size=5000, threshold=0.73, verbose=False):
     start_time = timeit.default_timer()
     chunks = split_data(OPTi_df, chunk_size)
     
@@ -354,7 +354,7 @@ def run_para(OPTi_df, DNB_df, chunk_size=2000, threshold=0.73, verbose=False):
 
 # The main function that will run when the script is executed directly
 if __name__ == '__main__':
-    result_df = run_para(df, GDF,500,.73, True)
+    result_df = run_para(df, GDF,5000,.73, True)
     print(result_df)
 
 
