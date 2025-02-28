@@ -305,7 +305,7 @@ def Match(DF, Gov):
 
 #=============================================================
 #SUB DF
-df=ODF.sample(20000, random_state=1)
+df=ODF.sample(40000, random_state=1)
 
 # #11 is a good seed
 # R=main(df,GDF)
